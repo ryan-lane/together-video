@@ -1,0 +1,8 @@
+location = /tv { rewrite ^ /tv/; }
+location /tv { try_files $uri @tv; }
+location @tv {
+  include uwsgi_params;
+  uwsgi_param SCRIPT_NAME /tv;
+  uwsgi_modifier1 30;
+  uwsgi_pass unix:/tmp/uwsgi.sock;
+}

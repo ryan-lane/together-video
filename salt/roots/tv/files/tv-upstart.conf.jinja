@@ -1,0 +1,16 @@
+description "Together Video"
+author "Ryan Lane"
+
+# run when the local FS becomes available
+start on local-filesystems
+stop on shutdown
+
+expect fork
+
+respawn
+respawn limit 10 5
+
+setuid {{ user }}
+setgid {{ user }}
+
+exec /usr/bin/uwsgi -s /tmp/uwsgi.sock -w tv:app
