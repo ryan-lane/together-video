@@ -1,7 +1,0 @@
-{
-  "name": "together-video",
-  "version": "0.1.0",
-  "dependencies": {
-    "videogular": "~0.1.0"
-  }
-}
