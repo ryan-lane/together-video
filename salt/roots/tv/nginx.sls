@@ -5,7 +5,13 @@
     - user: root
     - group: root
     - mode: 644
+    - watch_in:
+      - service: nginx
 
 /etc/nginx/sites-enabled/000-tv.conf:
   file.symlink:
     - target: /etc/nginx/sites-available/tv.conf
+    - require:
+      - file: /etc/nginx/sites-available/tv.conf
+    - watch_in:
+      - service: nginx

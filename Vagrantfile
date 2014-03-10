@@ -54,11 +54,19 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     vb.customize ["modifyvm", :id, "--memory", "1024"]
   end
 
-  ## Use all the defaults:
+  config.vm.provision :shell, :path => "bootstrap.sh"
+
   config.vm.provision :salt do |salt|
+    salt.minion_key = "salt/key/minion.pem"
+    salt.minion_pub = "salt/key/minion.pub"
+    salt.master_key = "salt/key/master.pem"
+    salt.master_pub = "salt/key/master.pub"
     salt.minion_config = "salt/minion"
     salt.run_highstate = true
     salt.install_type = "stable"
+    salt.install_master = true
+    salt.master_config = "salt/master"
+    salt.seed_master = {minion: salt.minion_pub}
   end
 
 end

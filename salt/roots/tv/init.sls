@@ -5,9 +5,9 @@
 include:
   - tv.python
   - tv.nginx
+  - tv.uwsgi
   - redis.server
   - nginx
-  - uwsgi
 
 tv_group:
   group.present:
@@ -25,19 +25,19 @@ tv_user:
 
 tv_upstart:
   file.managed:
+    - name: /etc/init/tv.conf
     - source: salt://tv/files/tv-upstart.conf.jinja
     - template: jinja
     - context:
-        listen: {{ listen }}
-        port: {{ port }}
         user: {{ user }}
-        group: {{ group }}
+        group: {{ user }}
     - user: root
     - group: root
     - mode: 644
 
 tv_service:
-    - running
+  service.running:
+    - name: tv
     - enable: True
     - reload: True
     - require:

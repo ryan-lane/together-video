@@ -28,3 +28,6 @@ redis = Redis(**app.config['REDIS'])
 
 import tv.auth
 import tv.routes
+
+if __name__ == '__main__':
+    app.run()

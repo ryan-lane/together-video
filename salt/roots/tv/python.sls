@@ -1,6 +1,6 @@
 {% set tv = pillar.get('tv', {}) -%}
-{% set location = tv.get('location', '/srv/tv') -%}
-{% set requirements = tv.get('requirements', '/vagrant/requires.txt') -%}
+{% set virtualenv = tv.get('virtualenv', '/srv/tv') -%}
+{% set location = tv.get('location', '/vagrant') -%}
 
 python_dependencies:
   pkg.installed:
@@ -12,13 +12,13 @@ python_dependencies:
 
 pip_virtualenvwrapper:
   pip.installed:
+    - name: virtualenvwrapper
     - require:
-      - pkg: python-pip
+      - pkg: python_dependencies
 
-{{ location }}:
+{{ virtualenv }}:
   virtualenv.managed:
     - system_site_packages: True
-    - requirements: {{ requirements }}
+    - requirements: "{{ location }}/requires.txt"
     - require:
       - pip: pip_virtualenvwrapper
-      - pip: pip_uwsgi

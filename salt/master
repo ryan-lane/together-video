@@ -1,4 +1,8 @@
-file_client: local
+auto_accept: True
+accept_keys: True
+fileserver_backend:
+  - roots
+  - git
 gitfs_remotes:
   - git://github.com/saltstack-formulas/redis-formula
   - git://github.com/saltstack-formulas/nginx-formula
