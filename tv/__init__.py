@@ -6,7 +6,7 @@ app.config.update(
     CSRF_ENABLED = True,
     DEBUG = True,
     SECRET_KEY = 'development key',
-    REQUIRE_AUTH = True,
+    REQUIRE_AUTH = False,
     BACKEND = 'redis',
     REDIS = {
         'host': 'localhost',

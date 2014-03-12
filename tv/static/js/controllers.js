@@ -43,11 +43,11 @@ tvApp.controller('TvCtrl', function ($scope, $sce, $http) {
         },
     }
 
-    $http.get('/tv/auth/info').success(function(data) {
+    $http.get('auth/info').success(function(data) {
         $scope.auth_required = data['auth_required'];
         })
     if ($scope.auth_required) {
-        $http.get('/tv/user').success(function(data) {
+        $http.get('user').success(function(data) {
             $scope.user = data;
             })
             .error(function(data, status) {
@@ -58,7 +58,7 @@ tvApp.controller('TvCtrl', function ($scope, $sce, $http) {
     }
 
     $scope.logout = function() {
-        $http.get('/tv/auth/logout', {})
+        $http.get('auth/logout', {})
             .success(function(data) {
                 $scope.user = data;
                 $scope.authorized = false;
