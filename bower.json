@@ -1,0 +1,21 @@
+{
+  "name": "together-video",
+  "version": "0.1.0",
+  "dependencies": {
+    "togetherjs": "~0.5.2",
+    "es5-shim": "~2.0.8",
+    "json3": "~3.2.4",
+    "angular-route": "~1.2.0",
+    "videogular": "~0.3.1",
+    "videogular-overlay-play": "~0.3.1",
+    "videogular-youtube": "~1.0.0",
+    "videogular-flash": "~1.0.0",
+    "videogular-buffering": "~0.3.1",
+    "videogular-controls": "~0.3.1",
+    "videogular-themes-default": "~0.3.1",
+    "bootstrap": "~3.1.1"
+  },
+  "description": "An application that lets multiple people watch HTML5 video together.",
+  "license": "Apache2",
+  "private": true
+}

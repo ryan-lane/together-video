@@ -4,13 +4,33 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Together Video</title>
-  <link rel="stylesheet" href="static/css/bootstrap.min.css">
-  <link rel="stylesheet" href="static/css/bootstrap-theme.min.css">
+  <link rel="stylesheet" href="static/vendor/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="static/vendor/bootstrap/css/bootstrap-theme.min.css">
   <link rel="stylesheet" href="static/css/tv.css">
-  <script src="static/lib/angular/angular.min.js"></script>
+  <script src="static/vendor/jquery/jquery.min.js"></script>
+  <script src="static/vendor/angular/angular.min.js"></script>
+  <script src="static/vendor/angular-route/angular-route.js"></script>
+  <script src="static/vendor/angular-sanitize/angular-sanitize.min.js"></script>
   <script src="static/js/controllers.js"></script>
+  <script src="static/vendor/videogular/videogular.min.js"></script>
+  <script src="static/vendor/videogular-buffering/buffering.min.js"></script>
+  <script src="static/vendor/videogular-controls/controls.min.js"></script>
+  <script src="static/vendor/videogular-flash/flash.js"></script>
+  <script src="static/vendor/videogular-overlay-play/overlay-play.min.js"></script>
+  <script>
+    var TogetherJSConfig_autoStart = true;
+  </script>
+  <script src="//togetherjs.com/togetherjs.js"></script>
 </head>
-<body ng-controller="tvCtrl">
+<body ng-controller="TvCtrl">
+  <!--[if lt IE 7]>
+    <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+  <![endif]-->
+
+  <!--[if lt IE 9]>
+    <script src="static/vendor/es5-shim/es5-shim.min.js"></script>
+    <script src="static/vendor/json3/lib/json3.min.js"></script>
+  <![endif]-->
   <div class="container">
     <div class="navbar navbar-default" role="navigation">
       <div class="navbar-header">
@@ -26,7 +46,7 @@
         <ul class="nav navbar-nav">
         </ul>
         <ul class="nav navbar-nav navbar-right">
-            <li ng-show="auth_required && !user.fullname"><a href="/auth/login">Login</a></li>
+            <li ng-show="auth_required && !user.fullname"><a href="/tv/auth/login">Login</a></li>
             <p ng-show="auth_required && user.fullname" class="navbar-text">Signed in as {{user.fullname}} (<a href="#" ng-click="logout()" class="navbar-link">Logout</a>)</p>
         </ul>
       </div><!--/.nav-collapse -->
@@ -37,7 +57,18 @@
       </div>
     </div>
     <div class="row" ng-show="authorized">
-      <p>Authorized</p>
+      <form novalidate class="simple-form">
+        Video Link: <input type="text" ng-model="sourcelink" />
+        <button ng-click="update(sourcelink)">Watch</button>
+      </form>
+      <videogular vg-width="config.width" vg-height="config.height" vg-theme="config.theme.url" vg-autoplay="config.autoPlay" vg-stretch="config.stretch.value" vg-responsive="config.responsive">
+        <video class="videoPlayer" controls preload="metadata">
+          <source src="" type="video/mp4">
+        </video>
+        <vg-flash-player></vg-flash-player>
+        <vg-buffering></vg-buffering>
+        <!--<vg-overlay-play></vg-overlay-play>-->
+      </videogular>
     </div>
   </div>
 </body>
