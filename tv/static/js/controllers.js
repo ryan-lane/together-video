@@ -12,16 +12,12 @@ tvApp.controller('TvCtrl', function ($scope, $sce, $http) {
     $scope.auth_required = true;
     $scope.authorized = true;
     $scope.user = {};
-    $scope.state = null;
+    $scope.loaded = null;
     $scope.stretchModes = [
         {label: "None", value: "none"},
         {label: "Fit", value: "fit"},
         {label: "Fill", value: "fill"}
     ];
-
-    $scope.onUpdateState = function(state) {
-        $scope.state = state;
-    }
 
     $scope.config = {
         autoHide: false,
@@ -66,8 +62,12 @@ tvApp.controller('TvCtrl', function ($scope, $sce, $http) {
     };
 
     $scope.update = function(sourcelink) {
-        $scope.source = $sce.trustAsResourceUrl(sourcelink);
-        $scope.sourcetype = 'video/mp4';
+        $http.head(sourcelink).success(function(data, status, headers) {
+            var sourceElement = angular.element("videogular video");
+            $scope.loaded = true;
+            sourceElement[0].src = $sce.trustAsResourceUrl(sourcelink);
+            sourceElement[0].type = headers('Content-Type');
+        });
     };
 
 });
