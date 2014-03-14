@@ -1,10 +1,11 @@
 server {
-  listen 80;
+  listen {{ port }};
 
   access_log   /var/log/nginx/tv.access.log;
   error_log   /var/log/nginx/tv.error.log;
 
-  location = /tv { rewrite ^ /tv/; }
+  location = / { rewrite ^ /tv/ redirect; }
+  location = /tv { rewrite ^ /tv/ redirect; }
   location /tv { try_files $uri @tv; }
   location @tv {
     include uwsgi_params;

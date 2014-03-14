@@ -9,7 +9,7 @@ install_uwsgi:
       - uwsgi
       - uwsgi-plugin-python
 
-uwsgi_tv_config:
+/etc/uwsgi/apps-available/tv.ini:
   file.managed:
     - name: /etc/uwsgi/apps-available/tv.ini
     - source: salt://tv/files/tv-uwsgi.ini.jinja
@@ -18,9 +18,20 @@ uwsgi_tv_config:
       virtualenv: {{ virtualenv }}
       location: {{ location }}
       workers: {{ workers }}
+    - require:
+      - pkg: install_uwsgi
+
+/etc/uwsgi/apps-enabled/tv.ini:
+  file.symlink:
+    - target: /etc/uwsgi/apps-available/tv.ini
+    - require:
+      - file: /etc/uwsgi/apps-available/tv.ini
+    - require:
+      - pkg: install_uwsgi
 
 uwsgi_service:
   service.running:
     - name: uwsgi
     - watch:
-      - file: uwsgi_tv_config
+      - file: /etc/uwsgi/apps-available/tv.ini
+      - file: /etc/uwsgi/apps-enabled/tv.ini
