@@ -23,7 +23,7 @@ tvApp.config(function($routeProvider, $locationProvider) {
     $locationProvider.html5Mode(true);
     });
 
-tvApp.controller('MainCtrl', function ($scope, $http, $location, md5) {
+tvApp.controller('MainCtrl', function ($scope, $http, $window, $location, md5) {
     var hash = null;
     TogetherJS();
     $scope.auth_required = true;
@@ -43,6 +43,10 @@ tvApp.controller('MainCtrl', function ($scope, $http, $location, md5) {
                 }
             });
     }
+
+    $scope.login = function() {
+        $window.location.pathname = '/auth/login';
+        };
 
     $scope.logout = function() {
         $http.get('auth/logout', {})

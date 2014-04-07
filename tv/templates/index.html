@@ -48,7 +48,7 @@
         <ul class="nav navbar-nav">
         </ul>
         <ul class="nav navbar-nav navbar-right">
-            <li ng-show="auth_required && !user.fullname"><a href="auth/login">Login</a></li>
+            <li ng-show="auth_required && !user.fullname"><a href="#" ng-click="login()">Login</a></li>
             <p ng-show="auth_required && user.fullname" class="navbar-text">Signed in as {{user.fullname}} (<a href="#" ng-click="logout()" class="navbar-link">Logout</a>)</p>
         </ul>
       </div><!--/.nav-collapse -->
