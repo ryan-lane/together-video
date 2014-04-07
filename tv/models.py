@@ -34,3 +34,26 @@ class User(object):
 
     def get_json(self):
         return json.dumps(redis.hgetall(self.key))
+
+
+class Video(object):
+
+    def __init__(self, video_hash):
+        self.video_hash = video_hash
+        self.key = 'tv:videos:{0}'.format(video_hash)
+        self._load_video()
+
+    def _load_video(self):
+        self.data = redis.hgetall(self.key)
+
+    def exists(self):
+        return 'video_url' in self.data
+
+    def save(self, video):
+        redis.hmset(self.key, video)
+        self._load_video()
+
+    def get_json(self):
+        return json.dumps(redis.hgetall(self.key))
+
+

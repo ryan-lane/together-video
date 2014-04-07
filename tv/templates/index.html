@@ -7,25 +7,24 @@
   <link rel="stylesheet" href="static/vendor/bootstrap/css/bootstrap.min.css">
   <link rel="stylesheet" href="static/vendor/bootstrap/css/bootstrap-theme.min.css">
   <link rel="stylesheet" href="static/css/tv.css">
-  <script src="static/vendor/jquery/jquery.min.js"></script>
   <script src="static/vendor/angular/angular.min.js"></script>
+  <script src="static/vendor/angular-md5/angular-md5.min.js"></script>
   <script src="static/vendor/angular-route/angular-route.js"></script>
   <script src="static/vendor/angular-sanitize/angular-sanitize.min.js"></script>
   <script src="static/js/controllers.js"></script>
-  <script src="static/vendor/videogular/videogular.min.js"></script>
+  <script src="static/vendor/videogular/videogular.js"></script>
   <script src="static/vendor/videogular-buffering/buffering.min.js"></script>
-  <script src="static/vendor/videogular-controls/controls.min.js"></script>
+  <script src="static/vendor/videogular-controls/controls.js"></script>
   <script src="static/vendor/videogular-flash/flash.js"></script>
-  <script src="static/vendor/videogular-overlay-play/overlay-play.min.js"></script>
+  <script src="static/vendor/videogular-overlay-play/overlay-play.js"></script>
   <script>
     var TogetherJSConfig_dontShowClicks = true,
-        TogetherJSConfig_autoStart = true,
-        TogetherJSConfig_suppressJoinConfirmation = true,
-        TogetherJSConfig_cloneClicks = '.watchbutton';
+        TogetherJSConfig_suppressJoinConfirmation = true;
   </script>
   <script src="//togetherjs.com/togetherjs.js"></script>
+  <base href="/">
 </head>
-<body ng-controller="TvCtrl">
+<body ng-controller="MainCtrl">
   <!--[if lt IE 7]>
     <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
   <![endif]-->
@@ -64,13 +63,7 @@
         Video Link: <input type="text" ng-model="sourcelink" />
         <button class="watchbutton" ng-click="update(sourcelink)">Watch</button>
       </form>
-      <videogular vg-width="config.width" vg-height="config.height" vg-theme="config.theme.url" vg-autoplay="config.autoPlay" vg-stretch="config.stretch.value" vg-responsive="config.responsive" ng-show="loaded">
-        <video class="videoPlayer" controls preload="metadata">
-        </video>
-        <vg-flash-player></vg-flash-player>
-        <vg-buffering></vg-buffering>
-        <!--<vg-overlay-play></vg-overlay-play>-->
-      </videogular>
+      <div ng-view></div>
     </div>
   </div>
 </body>

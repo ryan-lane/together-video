@@ -61,6 +61,6 @@ Quick Usage
 
 Execute: runserver.py
 
-After executing it, it'll be running on port 5000.
+After executing it, it'll be running on port 8080.
 
 If authentication is required, redis is necessary for openid sessions.
